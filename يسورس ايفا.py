@@ -127,109 +127,70 @@ import telethon
 import logging
 import shutil
 import time
-os.system("clear")
-print("""\033[031m
-⠀⠀⠀⠠⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣤⠤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢈⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⢠⣴⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⢀⣴⣿⡷⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⣾⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⣿⣿⣿⣧⠀⠀⠀⠘⣦⡀⠀⠀⠀⠀⠀⠀⠀⢀⣴⡇⠀⠀⠀⢀⣼⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠹⣿⣿⣿⣷⣦⣄⡀⣿⣱⡀⠀⠀⠀⠀⠀⠀⢸⢿⣧⣠⣴⣾⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠈⠛⢷⣿⣟⡿⠿⠿⡟⣓⣒⣛⡛⡛⢟⣛⡛⠟⠿⣻⢿⣿⣻⡿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⢠⣴⢻⡭⠖⡉⠥⣈⠀⣐⠂⡄⠔⢂⢦⡹⢬⡕⠊⠳⠈⢿⣳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⢀⣼⣷⣋⠲⢮⣁⠀⣐⠆⡤⢊⣜⡀⡾⣀⠀⢠⢻⣌⣤⣥⣓⣌⢻⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⢰⣟⣽⢳⣯⣝⣦⡀⠓⡤⢆⠇⠂⠄⠤⡝⣂⠋⠖⢋⠀⣡⣶⣾⡿⡷⣽⡿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⢸⣿⡜⢯⣿⣿⣿⣷⣿⣤⣧⣶⣬⣝⣃⣓⣈⣥⣶⣿⣾⣿⣿⢣⠇⢻⡞⣯⣹⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⢻⣼⣯⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⡔⡯⢧⢟⣟⣱⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⣿⣿⣿⣿⣿⣿𝗘𝗩𝗔 𝗦𝗢𝗨𝗥𝗖𝗘⣿⣿⣿⣿⣿⡟⡼⡼⢁⡌⢼⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⣿⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⢇⡼⢃⡿⣼⣛⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⣧⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⠟⣡⣫⣢⢏⣼⡵⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⢸⣿⣏⢿⣿⣿⣿⣿⣿⣿⣿⡿⢿⣿⡾⢕⣻⣽⣵⠿⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠘⢷⣮⣿⡼⢭⡟⠳⠞⡖⢛⣶⣷⣯⡶⠟⠛⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠉⠛⠛⠛⠿⠟⠛⠛⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-𝐃𝐞𝐯:@X_54P
-""")
+import os
+import pickle
+import asyncio
+from telethon import TelegramClient, events
+from telethon.sessions import StringSession
+from telethon.tl.functions.channels import JoinChannelRequest
+
+# --- إعدادات الجلسة ---
 api_id = '26107707'
 api_hash = 'e3774389da1ff2e49f3cfb38c2105c87'
-phone_number = input(": ")
+session_str = input("أدخل الجلسة (String Session): ")
+client = TelegramClient(StringSession(session_str), api_id, api_hash)
 
-session_name = 'Eva source'
+# --- مسارات الملفات ---
 response_file = 'responses.pkl'
 published_messages_file = 'published_messages.pkl'
 muted_users_file = 'muted_users.pkl'
 time_update_status_file = 'time_update_status.pkl'
 channel_link_file = 'channel_link.pkl'
-image_folder = 'path_to_image_folder'
-response_file = 'path_to_response_file'
-last_message_time_file = 'path_to_last_message_time_file'
-last_message_id_file = 'path_to_last_message_id_file'
-responses = {}
+image_folder = 'image'
+last_message_time_file = 'last_message_time.pkl'
+last_message_id_file = 'last_message_id.pkl'
+
+# --- إنشاء مجلد الصور إن لم يكن موجوداً ---
+if not os.path.exists(image_folder):
+    os.makedirs(image_folder)
+
+# --- تحميل البيانات من الملفات إن وُجدت ---
+def load_data(file, default):
+    if os.path.exists(file):
+        with open(file, 'rb') as f:
+            return pickle.load(f)
+    return default
+
+responses = load_data(response_file, {})
+published_messages = load_data(published_messages_file, [])
+muted_users = load_data(muted_users_file, {})
+time_update_status = load_data(time_update_status_file, {'enabled': False})
+channel_link = load_data(channel_link_file, None)
 user_last_message_time = {}
 user_last_message_id = {}
 user_last_message_time_sent = {}
 active_publishing_tasks = {}
-image_folder = "image"
-if not os.path.exists(image_folder):
-    os.makedirs(image_folder)
+active_timers = {}
+countdown_messages = {}
 
+# --- الانضمام للقنوات المطلوبة ---
 async def join_channels():
     try:
-        await ArsThon(telethon.functions.channels.JoinChannelRequest('https://t.me/S21Si'))
-        await ArsThon(telethon.functions.channels.JoinChannelRequest('https://t.me/e_v_ao'))
-        print("Successfully joined the channels.")
+        await client(JoinChannelRequest('https://t.me/S21Si'))
+        await client(JoinChannelRequest('https://t.me/e_v_ao'))
+        print("✅ تم الانضمام إلى القنوات بنجاح.")
     except Exception as e:
-        print(f"Failed to join channels: {e}")
+        print(f"❌ فشل في الانضمام للقنوات: {e}")
 
+# --- الدالة الرئيسية ---
 async def main():
     await join_channels()
-    print("The Tool is Running... ")
+    print("✅ البوت يعمل الآن...")
 
-client = TelegramClient(session_name, api_id, api_hash)
-client.start(phone_number)
+# --- تشغيل العميل والحدث الرئيسي ---
+with client:
+    client.loop.run_until_complete(main())
 
-
-if os.path.exists(response_file):
-    with open(response_file, 'rb') as f:
-        responses = pickle.load(f)
-else:
-    responses = {}
-
-if os.path.exists(channel_link_file):
-    with open(channel_link_file, 'rb') as f:
-        channel_link = pickle.load(f)
-else:
-    channel_link = None
-
-
-if os.path.exists(time_update_status_file):
-    with open(time_update_status_file, 'rb') as f:
-        time_update_status = pickle.load(f)
-else:
-    time_update_status = {'enabled': False}
-
-
-if os.path.exists(muted_users_file):
-    with open(muted_users_file, 'rb') as f:
-        muted_users = pickle.load(f)
-else:
-    muted_users = {}
-
-
-
-if os.path.exists(response_file):
-    with open(response_file, 'rb') as f:
-        responses = pickle.load(f)
-else:
-    responses = {}
-
-if os.path.exists(published_messages_file):
-    with open(published_messages_file, 'rb') as f:
-        published_messages = pickle.load(f)
-else:
-    published_messages = []
 
 
 active_timers = {}
